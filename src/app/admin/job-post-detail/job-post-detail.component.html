@@ -1,0 +1,132 @@
+<div class="p-grid p-nogutter p-justify-center">
+  <div class="p-col-12 p-md-10 p-lg-8">
+    <p-card *ngIf="jobPost" [header]="jobPost.title" styleClass="p-shadow-3">
+      <ng-template pTemplate="subtitle">
+        <i class="pi pi-map-marker"></i> {{ jobPost.location }} | <p-tag [value]="getCategoryName(jobPost.category)" severity="info"></p-tag>
+      </ng-template>
+      <ng-template pTemplate="content">
+        <h3>Descripción</h3>
+        <p>{{ jobPost.description }}</p>
+
+        <h3>Skills Requeridas</h3>
+        <div class="skills-list">
+          <p-chip *ngFor="let skill of jobPost.skills" label="{{skill.name}}" styleClass="p-mr-1 p-mb-1"></p-chip>
+        </div>
+
+        <p-divider></p-divider>
+
+        <h3>Postulantes ({{ applicants.length }})</h3>
+        <p-table [value]="applicants" [paginator]="true" [rows]="5" [responsive]="true">
+          <ng-template pTemplate="header">
+            <tr>
+              <th>Aplicante</th>
+              <th>Afinidad</th>
+              <th>Estado</th>
+              <th>Fecha Postulación</th>
+              <th>Acción</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-application>
+            <tr>
+              <td>
+                <div class="p-d-flex p-ai-center">
+                  <p-avatar [label]="application.user_profile?.user?.username?.charAt(0)?.toUpperCase()" size="large" shape="circle" styleClass="p-mr-2"></p-avatar>
+                  <span>{{ application.user_profile?.user?.username }}</span>
+                </div>
+              </td>
+              <td>
+                <p-tag [value]="(application.affinity | number:'1.0-0') + '%'"
+                       [severity]="getAffinityColor(application.affinity)"></p-tag>
+              </td>
+              <td>
+                <p-tag [value]="application.status | titlecase" [severity]="getStatusSeverity(application.status)"></p-tag>
+              </td>
+              <td>{{ application.submission_date | date:'short' }}</td>
+              <td>
+                <p-button icon="pi pi-eye" styleClass="p-button-rounded p-button-text" (click)="showApplicationDetail(application)"></p-button>
+              </td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="empty">
+            <tr>
+              <td colspan="5" class="p-text-center">No hay postulantes para esta oferta.</td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </ng-template>
+      <ng-template pTemplate="footer">
+        <p-button label="Volver al Dashboard" icon="pi pi-arrow-left" routerLink="/admin/dashboard"></p-button>
+      </ng-template>
+    </p-card>
+    <div *ngIf="!jobPost" class="p-text-center p-py-5">
+      <p>Oferta de empleo no encontrada.</p>
+      <p-button label="Volver al Dashboard" routerLink="/admin/dashboard"></p-button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de Detalle de Postulación -->
+<p-dialog header="Detalle de Postulación" [(visible)]="displayApplicationDetailModal" [modal]="true" [style]="{width: '50vw'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+  <div *ngIf="selectedApplication">
+    <h4>Aplicante: {{ selectedApplication.user_profile?.user?.first_name }} {{ selectedApplication.user_profile?.user?.last_name }} ({{ selectedApplication.user_profile?.user?.username }})</h4>
+    <p><strong>Email:</strong> {{ selectedApplication.user_profile?.user?.email }}</p>
+    <p><strong>Teléfono:</strong> {{ selectedApplication.user_profile?.phone || 'N/A' }}</p>
+    <p><strong>Dirección:</strong> {{ selectedApplication.user_profile?.address || 'N/A' }}</p>
+    <p><strong>Salario Esperado:</strong> {{ selectedApplication.expected_salary | currency:'USD':'symbol':'1.0-0' }}</p>
+    <p><strong>Fecha de Inicio Disponible:</strong> {{ selectedApplication.available_start_date | date:'shortDate' }}</p>
+    <p><strong>Carta de Presentación:</strong> {{ selectedApplication.cover_letter || 'No proporcionada' }}</p>
+    <p><strong>Notas Adicionales:</strong> {{ selectedApplication.additional_notes || 'No proporcionadas' }}</p>
+    <p><strong>CV/Portafolio:</strong> 
+      <a *ngIf="selectedApplication.resume_link" [href]="selectedApplication.resume_link" target="_blank" rel="noopener noreferrer">Ver CV</a>
+      <span *ngIf="!selectedApplication.resume_link">No proporcionado</span>
+    </p>
+
+    <p-divider></p-divider>
+
+    <h4>Habilidades del Aplicante:</h4>
+    <div class="skills-list">
+      <p-chip *ngFor="let skill of selectedApplication.user_profile?.skills" label="{{skill.name}}" styleClass="p-mr-1 p-mb-1"></p-chip>
+      <span *ngIf="!selectedApplication.user_profile?.skills || selectedApplication.user_profile.skills.length === 0">No se han proporcionado habilidades.</span>
+    </div>
+
+    <p-divider></p-divider>
+
+    <h4>Historial de Estado:</h4>
+    <p-timeline [value]="selectedApplication.status_history || []" layout="vertical" align="left">
+      <ng-template pTemplate="marker" let-event>
+        <span class="custom-marker p-shadow-2" [style.backgroundColor]="getStatusSeverity(event.new_status)">
+          <i [class]="getStatusIcon(event.new_status)"></i>
+        </span>
+      </ng-template>
+      <ng-template pTemplate="content" let-event>
+        <p-card>
+          <div class="p-d-flex p-jc-between p-ai-center">
+            <h4>{{ event.new_status | titlecase }}</h4>
+            <small>{{ event.changed_at | date:'medium' }}</small>
+          </div>
+          <p *ngIf="event.notes">{{ event.notes }}</p>
+          <small *ngIf="event.changed_by_name">Por: {{ event.changed_by_name }}</small>
+        </p-card>
+      </ng-template>
+    </p-timeline>
+    <span *ngIf="!selectedApplication.status_history || selectedApplication.status_history.length === 0">No hay historial de estado disponible.</span>
+
+    <p-divider></p-divider>
+
+    <h4>Cambiar Estado de Postulación:</h4>
+    <div class="p-fluid p-formgrid p-grid">
+      <div class="p-field p-col-12 p-md-6">
+        <label for="status">Nuevo Estado</label>
+        <p-dropdown id="status" [options]="applicationStatuses" [(ngModel)]="newApplicationStatus" placeholder="Seleccionar Estado"></p-dropdown>
+      </div>
+      <div class="p-field p-col-12 p-md-6">
+        <label for="reviewNotes">Notas de Revisión</label>
+        <textarea pInputTextarea id="reviewNotes" [(ngModel)]="reviewNotes" rows="3"></textarea>
+      </div>
+    </div>
+  </div>
+  <ng-template pTemplate="footer">
+    <p-button label="Cancelar" icon="pi pi-times" (click)="displayApplicationDetailModal=false" styleClass="p-button-text"></p-button>
+    <p-button label="Actualizar Estado" icon="pi pi-check" (click)="updateApplicationStatusInModal()" [disabled]="!newApplicationStatus"></p-button>
+  </ng-template>
+</p-dialog>

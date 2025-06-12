@@ -1,0 +1,63 @@
+<div class="p-grid p-nogutter p-justify-center">
+  <div class="p-col-12 p-md-8 p-lg-6">
+    <p-card header="Mi Perfil" styleClass="p-shadow-3">
+      <ng-template pTemplate="content">
+        <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="p-fluid p-formgrid p-grid">
+          <div class="p-field p-col-12 p-md-6">
+            <label for="username">Nombre de Usuario</label>
+            <input id="username" type="text" pInputText formControlName="username" [ngClass]="{'ng-invalid ng-dirty': profileForm.get('username')?.invalid && profileForm.get('username')?.touched}">
+            <small class="p-error" *ngIf="profileForm.get('username')?.invalid && profileForm.get('username')?.touched">
+              <span *ngIf="profileForm.get('username')?.errors?.['required']">El nombre de usuario es requerido.</span>
+            </small>
+          </div>
+
+          <div class="p-field p-col-12 p-md-6">
+            <label for="email">Correo Electrónico</label>
+            <input id="email" type="text" pInputText formControlName="email">
+          </div>
+
+          <div class="p-field p-col-12 p-md-6">
+            <label for="first_name">Nombre</label>
+            <input id="first_name" type="text" pInputText formControlName="first_name">
+          </div>
+
+          <div class="p-field p-col-12 p-md-6">
+            <label for="last_name">Apellido</label>
+            <input id="last_name" type="text" pInputText formControlName="last_name">
+          </div>
+
+          <div class="p-field p-col-12">
+            <label for="phone">Teléfono</label>
+            <input id="phone" type="text" pInputText formControlName="phone">
+          </div>
+
+          <div class="p-field p-col-12">
+            <label for="address">Dirección</label>
+            <textarea id="address" pInputTextarea formControlName="address" rows="3"></textarea>
+          </div>
+
+          <div class="p-field p-col-12"> <!-- Removed *ngIf="currentUser?.profile?.role === 'applicant'" for debugging -->
+            <label for="skills">Tus Habilidades</label>
+            <p-autoComplete [suggestions]="filteredSkills"
+                            (completeMethod)="filterSkills($event)"
+                            (onSelect)="addSkill($event)"
+                            [multiple]="true"
+                            [dropdown]="true"
+                            [forceSelection]="false"
+                            formControlName="skills"
+                            field="name"
+                            placeholder="Añadir tus habilidades (ej. Python, Angular)">
+              <ng-template let-skill pTemplate="chip">
+                <p-chip label="{{skill.name}}" [removable]="true" (onRemove)="removeSkill(skill)"></p-chip>
+              </ng-template>
+            </p-autoComplete>
+          </div>
+
+          <div class="p-col-12">
+            <p-button label="Guardar Cambios" type="submit" [disabled]="profileForm.invalid"></p-button>
+          </div>
+        </form>
+      </ng-template>
+    </p-card>
+  </div>
+</div>

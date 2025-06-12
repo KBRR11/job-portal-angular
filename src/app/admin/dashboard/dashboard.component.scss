@@ -1,0 +1,44 @@
+.p-card {
+  margin-top: 2rem;
+}
+
+.p-d-flex {
+  display: flex;
+}
+
+.p-jc-between {
+  justify-content: space-between;
+}
+
+.p-ai-center {
+  align-items: center;
+}
+
+.p-p-3 {
+  padding: 1rem;
+}
+
+.p-mb-4 {
+  margin-bottom: 1.5rem;
+}
+
+.skills-column {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+
+.p-avatar-group {
+  display: flex;
+  .p-avatar {
+    border: 2px solid #ffffff;
+    &:not(:first-child) {
+      margin-left: -0.75rem;
+    }
+  }
+}
+
+.p-overlay-badge {
+  background-color: #6c757d; // Color para el contador de avatares
+  color: #ffffff;
+}

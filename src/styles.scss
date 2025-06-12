@@ -1,1 +1,145 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* Global Styles */
+body {
+  font-family: var(--font-family);
+  background-color: var(--surface-ground);
+  color: var(--text-color);
+  margin: 0;
+  padding: 0;
+}
+
+/* PrimeFlex-like utility classes (basic subset) - Restored */
+.p-grid {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -0.5rem;
+  margin-left: -0.5rem;
+}
+
+.p-col-12 {
+  width: 100%;
+  padding: 0.5rem;
+}
+
+.p-md-8 {
+  flex: 0 0 66.6667%;
+  max-width: 66.6667%;
+}
+
+.p-md-4 {
+  flex: 0 0 33.3333%;
+  max-width: 33.3333%;
+}
+
+.p-lg-6 {
+  flex: 0 0 50%;
+  max-width: 50%;
+}
+
+.p-d-flex {
+  display: flex;
+}
+
+.p-jc-center {
+  justify-content: center;
+}
+
+.p-jc-between {
+  justify-content: space-between;
+}
+
+.p-ai-center {
+  align-items: center;
+}
+
+.p-nogutter {
+  margin-right: 0;
+  margin-left: 0;
+  > .p-col, > [class*="p-col-"] {
+    padding: 0;
+  }
+}
+
+/* Spacing - Restored */
+.p-mb-1 { margin-bottom: 0.25rem !important; }
+.p-mb-2 { margin-bottom: 0.5rem !important; }
+.p-mb-3 { margin-bottom: 1rem !important; }
+.p-mb-4 { margin-bottom: 1.5rem !important; }
+.p-mb-5 { margin-bottom: 2rem !important; }
+
+.p-mr-1 { margin-right: 0.25rem !important; }
+.p-mr-2 { margin-right: 0.5rem !important; }
+.p-mr-3 { margin-right: 1rem !important; }
+
+.p-ml-2 { margin-left: 0.5rem !important; }
+
+.p-p-3 { padding: 1rem !important; }
+.p-p-4 { padding: 1.5rem !important; }
+.p-py-5 { padding-top: 3rem !important; padding-bottom: 3rem !important; }
+
+/* Text alignment */
+.p-text-center {
+  text-align: center;
+}
+
+/* Card shadow */
+.p-shadow-3 {
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+/* Form field styling */
+.p-field {
+  margin-bottom: 1rem;
+}
+
+.p-field label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.p-inputtext,
+.p-inputtextarea,
+.p-dropdown,
+.p-multiselect,
+.p-autocomplete .p-inputtext {
+  width: 100%;
+}
+
+/* Overrides for PrimeNG components to match design */
+.p-card {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.p-button {
+  border-radius: 6px;
+}
+
+.p-tag {
+  border-radius: 4px;
+}
+
+.p-chip {
+  border-radius: 1rem;
+}
+
+.p-avatar {
+  background-color: var(--primary-color, #007bff);
+  color: var(--primary-color-text, #ffffff);
+}
+
+.p-toolbar {
+  border-radius: 0;
+}
+
+.p-sidebar {
+  .p-sidebar-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--surface-border);
+  }
+  .p-sidebar-content {
+    padding: 1.5rem;
+  }
+}

@@ -1,0 +1,48 @@
+<div class="p-grid p-nogutter">
+  <div class="p-col-12">
+    <p-card>
+      <ng-template pTemplate="header">
+        <div class="p-d-flex p-jc-between p-ai-center p-p-3">
+          <h2>Ofertas de Empleo Disponibles</h2>
+          <p-dropdown [options]="sortOptions" [(ngModel)]="selectedSortOption" placeholder="Ordenar por" optionLabel="label" (onChange)="onSortChange($event)"></p-dropdown>
+        </div>
+      </ng-template>
+      <ng-template pTemplate="content">
+        <div class="p-grid" *ngIf="filteredJobPosts.length > 0; else noJobPosts">
+          <div class="p-col-12 p-md-4" *ngFor="let job of filteredJobPosts">
+            <p-card styleClass="job-card">
+              <ng-template pTemplate="header">
+                <div class="job-card-header p-p-3">
+                  <h4>{{ job.title }}</h4>
+                  <p-tag [value]="getCategoryName(job.category)" severity="info"></p-tag>
+                </div>
+              </ng-template>
+              <ng-template pTemplate="subtitle">
+                <i class="pi pi-map-marker"></i> {{ job.location }}
+              </ng-template>
+              <ng-template pTemplate="content">
+                <p class="job-description">{{ job.description | slice:0:100 }}...</p>
+                <div class="skills-list">
+                  <p-chip *ngFor="let skill of job.skills" label="{{skill.name}}" styleClass="p-mr-1 p-mb-1"></p-chip>
+                </div>
+                <p-divider></p-divider>
+                <div class="p-d-flex p-jc-between p-ai-center">
+                    <div *ngIf="currentUser?.profile?.role === 'applicant'">
+                      <p-tag [value]="'Afinidad: ' + calculateAffinity(job) + '%'"
+                             [severity]="calculateAffinity(job) >= 75 ? 'success' : (calculateAffinity(job) >= 50 ? 'warning' : 'danger')"></p-tag>
+                    </div>
+                  <p-button label="Aplicar" icon="pi pi-send" (click)="applyForJob(job)"></p-button>
+                </div>
+              </ng-template>
+            </p-card>
+          </div>
+        </div>
+        <ng-template #noJobPosts>
+          <div class="p-col-12 p-text-center">
+            <p>No se encontraron ofertas de empleo.</p>
+          </div>
+        </ng-template>
+      </ng-template>
+    </p-card>
+  </div>
+</div>

@@ -1,0 +1,38 @@
+<div class="p-grid p-nogutter">
+  <div class="p-col-12">
+    <p-card header="Mis Postulaciones" styleClass="p-shadow-3">
+      <ng-template pTemplate="content">
+        <div *ngIf="applications.length > 0; else noApplications" class="p-grid">
+          <div class="p-col-12 p-md-6 p-lg-4" *ngFor="let app of applications">
+            <p-card styleClass="application-card">
+              <ng-template pTemplate="header">
+                <div class="application-card-header p-p-3">
+                  <h4>{{ app.job.title }}</h4>
+                  <p-tag [value]="getCategoryName(app.job.category)" severity="info"></p-tag>
+                </div>
+              </ng-template>
+              <ng-template pTemplate="subtitle">
+                <i class="pi pi-map-marker"></i> {{ app.job.location }}
+              </ng-template>
+              <ng-template pTemplate="content">
+                <p><strong>Estado:</strong> <p-tag [value]="app.status" [severity]="getStatusSeverity(app.status)"></p-tag></p>
+                <p><strong>Fecha de Postulación:</strong> {{ app.submission_date | date:'shortDate' }}</p>
+                <p><strong>Salario Esperado:</strong> {{ app.expected_salary | currency:'USD':'symbol':'1.0-0' }}</p>
+                <p-divider></p-divider>
+                <div class="p-d-flex p-jc-end">
+                  <p-button label="Ver Detalle" icon="pi pi-eye" (click)="viewApplicationDetail(app.id)"></p-button>
+                </div>
+              </ng-template>
+            </p-card>
+          </div>
+        </div>
+        <ng-template #noApplications>
+          <div class="p-text-center p-py-5">
+            <p>No has realizado ninguna postulación aún.</p>
+            <p-button label="Explorar Ofertas" routerLink="/applicant/dashboard"></p-button>
+          </div>
+        </ng-template>
+      </ng-template>
+    </p-card>
+  </div>
+</div>

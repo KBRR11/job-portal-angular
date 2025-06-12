@@ -1,0 +1,46 @@
+.register-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f4f6f9; // Un color de fondo suave
+}
+
+p-card {
+  width: 100%;
+  max-width: 450px; // Un poco más ancho para el formulario de registro
+  .p-card-header {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+}
+
+.p-field {
+  margin-bottom: 1.5rem;
+}
+
+.p-button {
+  width: 100%;
+}
+
+.p-error {
+  color: #ef4444; // Un rojo para mensajes de error
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+  display: block;
+}
+
+a {
+  color: #007bff; // Color de enlace
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.p-field-radiobutton {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}

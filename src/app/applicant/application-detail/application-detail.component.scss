@@ -1,0 +1,50 @@
+.application-detail-header {
+  background-color: var(--surface-a);
+  border-bottom: 1px solid var(--surface-border);
+  h2 {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+  }
+  p-tag {
+    font-size: 0.8rem;
+  }
+}
+
+.p-card-subtitle {
+  h3 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    color: var(--text-color);
+  }
+  .p-d-flex {
+    margin-bottom: 0.5rem;
+  }
+  i {
+    color: var(--primary-color);
+  }
+}
+
+.p-grid.p-formgrid p {
+  margin-bottom: 0.5rem;
+}
+
+.p-divider {
+  margin: 1.5rem 0;
+}
+
+.custom-marker {
+  display: flex;
+  width: 2rem;
+  height: 2rem;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.p-progressSpinner {
+  display: block;
+  margin: 2rem auto;
+}

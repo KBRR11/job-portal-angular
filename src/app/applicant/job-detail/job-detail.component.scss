@@ -1,0 +1,70 @@
+.job-detail-header {
+  background-color: var(--surface-a);
+  border-bottom: 1px solid var(--surface-border);
+  h2 {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+  }
+  p-tag {
+    font-size: 0.8rem;
+  }
+}
+
+.job-description, .job-requirements {
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.skills-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  p-chip {
+    color: var(--blue-800);
+    font-weight: bold;
+  }
+}
+
+p-divider {
+  margin: 1.5rem 0;
+}
+
+.p-field {
+  margin-bottom: 1.5rem;
+}
+
+label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--text-color);
+}
+
+p-inputNumber, p-calendar, p-inputtext, p-inputtextarea {
+  width: 100%;
+}
+
+.p-error {
+  color: var(--red-500);
+  font-size: 0.8rem;
+  margin-top: 0.25rem;
+  display: block;
+}
+
+.p-button {
+  margin-top: 1rem;
+}
+
+.p-text-green-500 {
+  color: var(--green-500);
+}
+
+.p-text-red-500 {
+  color: var(--red-500);
+}
+
+p-progressSpinner {
+  display: block;
+  margin: 2rem auto;
+}

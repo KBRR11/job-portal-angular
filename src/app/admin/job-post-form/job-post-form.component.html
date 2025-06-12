@@ -1,0 +1,120 @@
+<div class="p-grid p-nogutter p-justify-center">
+  <div class="p-col-12 p-md-8 p-lg-6">
+    <p-card [header]="isEditMode ? 'Editar Oferta de Empleo' : 'Crear Nueva Oferta de Empleo'" styleClass="p-shadow-3">
+      <ng-template pTemplate="content">
+        <form [formGroup]="jobPostForm" (ngSubmit)="onSubmit()" class="p-fluid">
+          <div class="p-field">
+            <label for="title">Título de la Oferta</label>
+            <input id="title" type="text" pInputText formControlName="title" [ngClass]="{'ng-invalid ng-dirty': jobPostForm.get('title')?.invalid && jobPostForm.get('title')?.touched}">
+            <small class="p-error" *ngIf="jobPostForm.get('title')?.invalid && jobPostForm.get('title')?.touched">
+              <span *ngIf="jobPostForm.get('title')?.errors?.['required']">El título es requerido.</span>
+            </small>
+          </div>
+
+          <div class="p-field">
+            <label for="description">Descripción</label>
+            <textarea id="description" pInputTextarea formControlName="description" rows="5" [ngClass]="{'ng-invalid ng-dirty': jobPostForm.get('description')?.invalid && jobPostForm.get('description')?.touched}"></textarea>
+            <small class="p-error" *ngIf="jobPostForm.get('description')?.invalid && jobPostForm.get('description')?.touched">
+              <span *ngIf="jobPostForm.get('description')?.errors?.['required']">La descripción es requerida.</span>
+            </small>
+          </div>
+
+          <div class="p-field">
+            <label for="location">Ubicación</label>
+            <input id="location" type="text" pInputText formControlName="location" [ngClass]="{'ng-invalid ng-dirty': jobPostForm.get('location')?.invalid && jobPostForm.get('location')?.touched}">
+            <small class="p-error" *ngIf="jobPostForm.get('location')?.invalid && jobPostForm.get('location')?.touched">
+              <span *ngIf="jobPostForm.get('location')?.errors?.['required']">La ubicación es requerida.</span>
+            </small>
+          </div>
+
+          <div class="p-field">
+            <label for="requirements">Requisitos</label>
+            <textarea id="requirements" pInputTextarea formControlName="requirements" rows="5" [ngClass]="{'ng-invalid ng-dirty': jobPostForm.get('requirements')?.invalid && jobPostForm.get('requirements')?.touched}"></textarea>
+            <small class="p-error" *ngIf="jobPostForm.get('requirements')?.invalid && jobPostForm.get('requirements')?.touched">
+              <span *ngIf="jobPostForm.get('requirements')?.errors?.['required']">Los requisitos son requeridos.</span>
+            </small>
+          </div>
+
+          <div class="p-field">
+            <label for="category">Categoría</label>
+            <p-dropdown id="category" [options]="availableCategories" optionLabel="name" optionValue="id"
+                        formControlName="category" placeholder="Selecciona una categoría"
+                        [ngClass]="{'ng-invalid ng-dirty': jobPostForm.get('category')?.invalid && jobPostForm.get('category')?.touched}"></p-dropdown>
+            <small class="p-error" *ngIf="jobPostForm.get('category')?.invalid && jobPostForm.get('category')?.touched">
+              <span *ngIf="jobPostForm.get('category')?.errors?.['required']">La categoría es requerida.</span>
+            </small>
+          </div>
+
+          <div class="p-field">
+            <label for="employment_type">Tipo de Empleo</label>
+            <p-dropdown id="employment_type" [options]="[{label: 'Tiempo Completo', value: 'full_time'}, {label: 'Medio Tiempo', value: 'part_time'}, {label: 'Contrato', value: 'contract'}, {label: 'Pasantía', value: 'internship'}, {label: 'Remoto', value: 'remote'}]"
+                        formControlName="employment_type" placeholder="Selecciona tipo de empleo"
+                        [ngClass]="{'ng-invalid ng-dirty': jobPostForm.get('employment_type')?.invalid && jobPostForm.get('employment_type')?.touched}"></p-dropdown>
+            <small class="p-error" *ngIf="jobPostForm.get('employment_type')?.invalid && jobPostForm.get('employment_type')?.touched">
+              <span *ngIf="jobPostForm.get('employment_type')?.errors?.['required']">El tipo de empleo es requerido.</span>
+            </small>
+          </div>
+
+          <div class="p-field">
+            <label for="experience_level">Nivel de Experiencia</label>
+            <p-dropdown id="experience_level" [options]="[{label: 'Nivel Básico', value: 'entry'}, {label: 'Nivel Medio', value: 'mid'}, {label: 'Nivel Senior', value: 'senior'}, {label: 'Líder/Principal', value: 'lead'}]"
+                        formControlName="experience_level" placeholder="Selecciona nivel de experiencia"
+                        [ngClass]="{'ng-invalid ng-dirty': jobPostForm.get('experience_level')?.invalid && jobPostForm.get('experience_level')?.touched}"></p-dropdown>
+            <small class="p-error" *ngIf="jobPostForm.get('experience_level')?.invalid && jobPostForm.get('experience_level')?.touched">
+              <span *ngIf="jobPostForm.get('experience_level')?.errors?.['required']">El nivel de experiencia es requerido.</span>
+            </small>
+          </div>
+
+          <div class="p-grid p-nogutter">
+            <div class="p-col-6 p-pr-2">
+              <div class="p-field">
+                <label for="salary_min">Salario Mínimo</label>
+                <p-inputNumber id="salary_min" formControlName="salary_min" mode="currency" currency="USD" locale="en-US"></p-inputNumber>
+              </div>
+            </div>
+            <div class="p-col-6 p-pl-2">
+              <div class="p-field">
+                <label for="salary_max">Salario Máximo</label>
+                <p-inputNumber id="salary_max" formControlName="salary_max" mode="currency" currency="USD" locale="en-US"></p-inputNumber>
+              </div>
+            </div>
+          </div>
+
+          <div class="p-field">
+            <label for="status">Estado de la Oferta</label>
+            <p-dropdown id="status" [options]="[{label: 'Activa', value: 'active'}, {label: 'Inactiva', value: 'inactive'}, {label: 'Cerrada', value: 'closed'}]"
+                        formControlName="status" placeholder="Selecciona estado"
+                        [ngClass]="{'ng-invalid ng-dirty': jobPostForm.get('status')?.invalid && jobPostForm.get('status')?.touched}"></p-dropdown>
+            <small class="p-error" *ngIf="jobPostForm.get('status')?.invalid && jobPostForm.get('status')?.touched">
+              <span *ngIf="jobPostForm.get('status')?.errors?.['required']">El estado es requerido.</span>
+            </small>
+          </div>
+
+          <div class="p-field">
+            <label for="deadline">Fecha Límite de Postulación</label>
+            <p-calendar id="deadline" formControlName="deadline" dateFormat="yy/mm/dd" [showIcon]="true"></p-calendar>
+          </div>
+
+          <div class="p-field">
+            <label for="skills">Skills Requeridas</label>
+            <p-autoComplete [suggestions]="filteredSkills"
+                            (completeMethod)="filterSkills($event)"
+                            (onSelect)="addSkill($event)"
+                            [multiple]="true"
+                            [dropdown]="true"
+                            [forceSelection]="false"
+                            formControlName="skills"
+                            field="name"
+                            placeholder="Añadir skills (ej. Angular, Python)">
+              <ng-template let-skill pTemplate="chip">
+                <p-chip label="{{skill.name}}" [removable]="true" (onRemove)="removeSkill(skill.id)"></p-chip>
+              </ng-template>
+            </p-autoComplete>
+          </div>
+
+          <p-button [label]="isEditMode ? 'Guardar Cambios' : 'Crear Oferta'" type="submit" [disabled]="jobPostForm.invalid"></p-button>
+        </form>
+      </ng-template>
+    </p-card>
+  </div>
+</div>

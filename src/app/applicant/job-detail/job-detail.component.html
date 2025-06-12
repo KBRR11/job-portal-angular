@@ -1,0 +1,100 @@
+<div class="p-grid p-nogutter p-justify-center">
+  <div class="p-col-12 p-md-10 p-lg-8">
+    <p-card *ngIf="jobPost">
+      <ng-template pTemplate="header">
+        <div class="job-detail-header p-p-3">
+          <h2>{{ jobPost.title }}</h2>
+          <p-tag [value]="getCategoryName(jobPost.category)" severity="info"></p-tag>
+        </div>
+      </ng-template>
+      <ng-template pTemplate="subtitle">
+        <div class="p-d-flex p-ai-center p-mb-2">
+          <i class="pi pi-map-marker p-mr-2"></i> {{ jobPost.location }}
+          <p-divider layout="vertical"></p-divider>
+          <i class="pi pi-briefcase p-mr-2"></i> {{ jobPost.employment_type | titlecase }}
+          <p-divider layout="vertical"></p-divider>
+          <i class="pi pi-chart-line p-mr-2"></i> {{ jobPost.experience_level | titlecase }}
+        </div>
+        <div class="p-d-flex p-ai-center">
+          <i class="pi pi-money-bill p-mr-2"></i> {{ jobPost.salary_range }}
+          <p-divider layout="vertical"></p-divider>
+          <i class="pi pi-calendar p-mr-2"></i> Creado: {{ jobPost.created_at | date:'shortDate' }}
+          <p-divider layout="vertical"></p-divider>
+          <i class="pi pi-calendar-times p-mr-2"></i> Límite: {{ jobPost.deadline | date:'shortDate' }}
+        </div>
+      </ng-template>
+      <ng-template pTemplate="content">
+        <h3>Descripción del Empleo</h3>
+        <p>{{ jobPost.description }}</p>
+
+        <h3>Requisitos</h3>
+        <p>{{ jobPost.requirements }}</p>
+
+        <h3>Habilidades Requeridas</h3>
+        <div class="skills-list p-mb-3">
+          <p-chip *ngFor="let skill of jobPost.skills" label="{{skill.name}}" styleClass="p-mr-1 p-mb-1"></p-chip>
+        </div>
+
+        <p-divider></p-divider>
+
+        <h3>Aplicar a este Empleo</h3>
+        <div *ngIf="currentUser?.profile?.role === 'applicant'">
+          <div *ngIf="!hasApplied; else alreadyApplied">
+            <form [formGroup]="applicationForm" (ngSubmit)="onSubmitApplication()">
+              <div class="p-fluid p-formgrid p-grid">
+                <div class="p-field p-col-12">
+                  <label for="cover_letter">Carta de Presentación (Opcional)</label>
+                  <textarea id="cover_letter" formControlName="cover_letter" rows="5" pInputTextarea></textarea>
+                </div>
+
+                <div class="p-field p-col-12 p-md-6">
+                  <label for="resume_link">Enlace a CV/Portafolio (Opcional)</label>
+                  <input id="resume_link" type="url" formControlName="resume_link" pInputText>
+                  <small class="p-error" *ngIf="applicationForm.get('resume_link')?.invalid && applicationForm.get('resume_link')?.touched">
+                    Por favor, introduce una URL válida.
+                  </small>
+                  <small class="p-d-block p-mt-1">Si no proporcionas un enlace, se generará uno ficticio.</small>
+                </div>
+
+                <div class="p-field p-col-12 p-md-6">
+                  <label for="expected_salary">Salario Esperado (Opcional)</label>
+                  <p-inputNumber id="expected_salary" formControlName="expected_salary" mode="currency" currency="USD" locale="en-US"></p-inputNumber>
+                  <small class="p-error" *ngIf="applicationForm.get('expected_salary')?.invalid && applicationForm.get('expected_salary')?.touched">
+                    Por favor, introduce un salario válido.
+                  </small>
+                </div>
+
+                <div class="p-field p-col-12 p-md-6">
+                  <label for="available_start_date">Fecha de Inicio Disponible (Opcional)</label>
+                  <p-calendar id="available_start_date" formControlName="available_start_date" dateFormat="yy/mm/dd" [showIcon]="true"></p-calendar>
+                </div>
+
+                <div class="p-field p-col-12">
+                  <label for="additional_notes">Notas Adicionales (Opcional)</label>
+                  <textarea id="additional_notes" formControlName="additional_notes" rows="3" pInputTextarea></textarea>
+                </div>
+
+                <div class="p-col-12 p-d-flex p-jc-end">
+                  <p-button label="Enviar Aplicación" icon="pi pi-send" type="submit" [disabled]="applicationForm.invalid || isApplying"></p-button>
+                </div>
+              </div>
+            </form>
+          </div>
+          <ng-template #alreadyApplied>
+            <p class="p-text-center p-text-bold p-text-green-500">¡Ya has aplicado a esta oferta de empleo!</p>
+            <div class="p-d-flex p-jc-center">
+              <p-button label="Ver Mis Aplicaciones" icon="pi pi-list" routerLink="/applicant/applications"></p-button>
+            </div>
+          </ng-template>
+        </div>
+        <div *ngIf="!currentUser || currentUser?.profile?.role !== 'applicant'" class="p-text-center p-text-bold p-text-red-500">
+          Debes ser un aplicante y estar logueado para aplicar a esta oferta.
+        </div>
+      </ng-template>
+    </p-card>
+    <div *ngIf="!jobPost" class="p-text-center p-mt-5">
+      <p>Cargando detalles de la oferta de empleo...</p>
+      <p-progressSpinner></p-progressSpinner>
+    </div>
+  </div>
+</div>

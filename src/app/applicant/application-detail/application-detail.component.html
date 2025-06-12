@@ -1,0 +1,82 @@
+<div class="p-grid p-nogutter p-justify-center">
+  <div class="p-col-12 p-md-10 p-lg-8">
+    <p-card *ngIf="application">
+      <ng-template pTemplate="header">
+        <div class="application-detail-header p-p-3">
+          <h2>Detalle de Postulación</h2>
+          <p-tag [value]="application!.status" [severity]="getStatusSeverity(application!.status!)"></p-tag>
+        </div>
+      </ng-template>
+      <ng-template pTemplate="subtitle">
+        <h3>Oferta de Empleo: {{ application.job.title }}</h3>
+        <div class="p-d-flex p-ai-center p-mb-2">
+          <i class="pi pi-map-marker p-mr-2"></i> {{ application.job.location }}
+          <p-divider layout="vertical"></p-divider>
+          <i class="pi pi-briefcase p-mr-2"></i> {{ application.job.employment_type | titlecase }}
+          <p-divider layout="vertical"></p-divider>
+          <i class="pi pi-chart-line p-mr-2"></i> {{ application.job.experience_level | titlecase }}
+        </div>
+        <div class="p-d-flex p-ai-center">
+          <i class="pi pi-money-bill p-mr-2"></i> {{ application.job.salary_range }}
+          <p-divider layout="vertical"></p-divider>
+          <i class="pi pi-calendar p-mr-2"></i> Postulado: {{ application.submission_date | date:'shortDate' }}
+        </div>
+      </ng-template>
+      <ng-template pTemplate="content">
+        <h3>Información de la Postulación</h3>
+        <div class="p-grid p-formgrid">
+          <div class="p-col-12 p-md-6">
+            <p><strong>Salario Esperado:</strong> {{ application.expected_salary | currency:'USD':'symbol':'1.0-0' }}</p>
+          </div>
+          <div class="p-col-12 p-md-6">
+            <p><strong>Fecha de Inicio Disponible:</strong> {{ application.available_start_date | date:'shortDate' }}</p>
+          </div>
+          <div class="p-col-12">
+            <p><strong>Carta de Presentación:</strong> {{ application.cover_letter || 'No proporcionada' }}</p>
+          </div>
+          <div class="p-col-12">
+            <p><strong>Notas Adicionales:</strong> {{ application.additional_notes || 'No proporcionadas' }}</p>
+          </div>
+          <div class="p-col-12">
+            <p><strong>CV/Portafolio:</strong> 
+              <a *ngIf="application?.resume_link" href="https://kbrr11.github.io/devfolio/" target="_blank" rel="noopener noreferrer">Ver CV</a>
+              <span *ngIf="!application?.resume_link">No proporcionado</span>
+            </p>
+          </div>
+        </div>
+
+        <p-divider></p-divider>
+
+        <h3>Historial de Estado</h3>
+        <p-timeline [value]="timelineEvents" layout="vertical" align="alternate">
+          <ng-template pTemplate="marker" let-event>
+            <span class="custom-marker p-shadow-2" [style.backgroundColor]="event.color">
+              <i [class]="event.icon"></i>
+            </span>
+          </ng-template>
+          
+          <ng-template pTemplate="content" let-event>
+            <p-card>
+              <div class="p-d-flex p-jc-between p-ai-center">
+                <h4>{{ event.status | titlecase }}</h4>
+                <small *ngIf="event.date">{{ event.date | date:'medium' }}</small>
+              </div>
+              <p *ngIf="event.notes">{{ event.notes }}</p>
+              <small *ngIf="event.changed_by_name">Por: {{ event.changed_by_name }}</small>
+            </p-card>
+          </ng-template>
+        </p-timeline>
+
+        <p-divider></p-divider>
+
+        <div class="p-d-flex p-jc-end">
+          <p-button label="Volver a Mis Postulaciones" icon="pi pi-arrow-left" routerLink="/applicant/applications"></p-button>
+        </div>
+      </ng-template>
+    </p-card>
+    <div *ngIf="!application" class="p-text-center p-mt-5">
+      <p>Cargando detalle de la postulación...</p>
+      <p-progressSpinner></p-progressSpinner>
+    </div>
+  </div>
+</div>

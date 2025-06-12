@@ -1,0 +1,73 @@
+.p-toolbar {
+  background-color: #ffffff;
+  border-bottom: 1px solid #e0e0e0;
+  padding: 1rem 1.5rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,.05);
+  display: flex; /* Ensure toolbar itself is a flex container */
+  justify-content: space-between; /* Distribute groups */
+  align-items: center; /* Vertically align items */
+
+  .p-toolbar-group-left {
+    display: flex;
+    align-items: center;
+    h3 {
+      margin: 0;
+      margin-left: 1rem;
+      color: #333;
+    }
+  }
+
+  .p-toolbar-group-right {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.p-sidebar {
+  .p-sidebar-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid #eee;
+  }
+  .p-sidebar-content {
+    padding: 1.5rem;
+  }
+}
+
+.sidebar-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  li {
+    margin-bottom: 0.5rem;
+
+    a {
+      display: flex;
+      align-items: center;
+      padding: 0.75rem 1rem;
+      border-radius: 6px;
+      color: #333;
+      text-decoration: none;
+      transition: background-color 0.2s;
+
+      &:hover {
+        background-color: #f0f0f0;
+      }
+
+      &.active-link {
+        background-color: #e0f2f7; // Un color para el enlace activo
+        color: #007bff;
+        font-weight: bold;
+      }
+
+      i {
+        margin-right: 0.75rem;
+        font-size: 1.1rem;
+      }
+    }
+  }
+}
+
+.p-p-4 {
+  padding: 1.5rem !important; // Sobrescribir el padding de PrimeNG si es necesario
+}

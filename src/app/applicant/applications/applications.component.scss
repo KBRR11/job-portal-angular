@@ -1,0 +1,28 @@
+.custom-marker {
+  display: flex;
+  width: 2rem;
+  height: 2rem;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.p-timeline-event-content,
+.p-timeline-event-opposite {
+  line-height: 1;
+}
+
+.p-card {
+  margin-bottom: 1rem;
+}
+
+.p-text-center {
+  text-align: center;
+}
+
+.p-py-5 {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}

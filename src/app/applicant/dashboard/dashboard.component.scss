@@ -1,0 +1,84 @@
+.job-card {
+  height: 28rem; // Establece una altura fija para todas las tarjetas
+  display: flex;
+  flex-direction: column;
+
+  .p-card-header {
+    padding-bottom: 0;
+    padding-left: 1.25rem; // Añade padding a la izquierda del encabezado de la tarjeta
+    padding-right: 1.25rem; // Añade padding a la derecha del encabezado de la tarjeta
+  }
+
+  .job-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.5rem;
+
+    h4 {
+      margin: 0;
+      font-size: 1.25rem;
+      color: #333;
+    }
+  }
+
+  .p-card-subtitle {
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    i {
+      margin-right: 0.5rem;
+    }
+  }
+
+  .job-description {
+    font-size: 0.95rem;
+    color: #555;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+    flex-grow: 1; // Permite que la descripción ocupe el espacio disponible
+  }
+
+  .skills-list {
+    margin-bottom: 1rem;
+    .p-chip {
+      background-color: #e9ecef;
+      color: #495057;
+      font-size: 0.8rem;
+      padding: 0.3rem 0.6rem;
+      border-radius: 1rem;
+    }
+  }
+
+  .p-divider {
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .p-card-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    max-height: 12rem; // Ajusta esta altura según sea necesario para el contenido
+    overflow-y: auto; // Permite el desplazamiento vertical si el contenido excede la altura
+  }
+
+  .p-card-footer {
+    padding-top: 0;
+  }
+}
+
+.p-dataview-content {
+  .p-grid {
+    margin-left: -1.5rem; /* Aumentar el margen negativo para compensar el padding */
+    margin-right: -1.5rem; /* Aumentar el margen negativo para compensar el padding */
+    .p-col-12.p-md-4 {
+      padding: 1.5rem; /* Aumentar el padding para más espacio entre tarjetas */
+    }
+  }
+}
+
+.p-dropdown {
+  min-width: 12rem;
+}

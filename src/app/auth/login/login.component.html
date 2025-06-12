@@ -1,0 +1,26 @@
+<div class="login-container">
+  <p-card header="Iniciar Sesión" styleClass="p-shadow-3">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="p-fluid">
+          <div class="p-field">
+            <label for="username">Nombre de Usuario</label>
+            <input id="username" type="text" pInputText formControlName="username" [ngClass]="{'ng-invalid ng-dirty': loginForm.get('username')?.invalid && loginForm.get('username')?.touched}">
+            <small class="p-error" *ngIf="loginForm.get('username')?.invalid && loginForm.get('username')?.touched">
+              <span *ngIf="loginForm.get('username')?.errors?.['required']">El nombre de usuario es requerido.</span>
+            </small>
+          </div>
+
+      <div class="p-field">
+        <label for="password">Contraseña</label>
+        <p-password id="password" formControlName="password" [toggleMask]="true" [feedback]="false" [ngClass]="{'ng-invalid ng-dirty': loginForm.get('password')?.invalid && loginForm.get('password')?.touched}"></p-password>
+        <small class="p-error" *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+          <span *ngIf="loginForm.get('password')?.errors?.['required']">La contraseña es requerida.</span>
+        </small>
+      </div>
+
+      <p-button label="Ingresar" type="submit" [disabled]="loginForm.invalid"></p-button>
+    </form>
+    <div class="p-mt-3 p-text-center">
+      ¿No tienes una cuenta? <a routerLink="/register">Regístrate aquí</a>
+    </div>
+  </p-card>
+</div>
