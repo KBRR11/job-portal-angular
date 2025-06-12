@@ -1,27 +1,63 @@
-# AngularFrontend
+# Frontend del Portal de Empleo (Angular)
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.13.
+Este es el frontend de la aplicación Job Portal, construido con Angular.
 
-## Development server
+## Prerrequisitos
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Asegúrate de tener instalado lo siguiente:
 
-## Code scaffolding
+*   Node.js (versión recomendada por Angular CLI 14.x)
+*   npm (administrador de paquetes de Node.js)
+*   Angular CLI (versión 14.x)
+    ```bash
+    npm install -g @angular/cli@14
+    ```
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Configuración y Ejecución Localmente
 
-## Build
+Sigue estos pasos para levantar el frontend localmente:
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+1.  **Navega al directorio del frontend:**
+    ```bash
+    cd angular-frontend
+    ```
 
-## Running unit tests
+2.  **Instala las dependencias de Node.js:**
+    ```bash
+    npm install
+    ```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+3.  **Configura la URL del Backend:**
+    El frontend necesita saber dónde está el backend. Por defecto, está configurado para `http://localhost:8000/api`. Si tu backend se ejecuta en una dirección diferente (por ejemplo, si lo estás ejecutando en Docker y necesitas accederlo por `http://localhost:8000/api/` o si el frontend también está en Docker y necesita `http://job_portal_backend:8000/api/`), puedes ajustar la URL en:
+    *   `src/environments/environment.ts` (para desarrollo)
+    *   `src/environments/environment.prod.ts` (para producción)
 
-## Running end-to-end tests
+    Ejemplo en `src/environments/environment.ts`:
+    ```typescript
+    export const environment = {
+      production: false,
+      apiUrl: 'http://localhost:8000/api' // O 'http://job_portal_backend:8000/api' si el frontend está en Docker
+    };
+    ```
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+4.  **Inicia el servidor de desarrollo:**
+    ```bash
+    ng serve
+    ```
+    Navega a `http://localhost:4200/`. La aplicación se recargará automáticamente si cambias cualquier archivo fuente.
 
-## Further help
+## Construcción
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Ejecuta `ng build` para construir el proyecto. Los artefactos de construcción se almacenarán en el directorio `dist/`.
+
+## Ejecución de pruebas unitarias
+
+Ejecuta `ng test` para ejecutar las pruebas unitarias a través de [Karma](https://karma-runner.github.io).
+
+## Ejecución de pruebas de extremo a extremo
+
+Ejecuta `ng e2e` para ejecutar las pruebas de extremo a extremo a través de la plataforma de tu elección. Para usar este comando, primero debes agregar un paquete que implemente capacidades de prueba de extremo a extremo.
+
+## Ayuda Adicional
+
+Para obtener más ayuda sobre Angular CLI, usa `ng help` o consulta la página [Angular CLI Overview and Command Reference](https://angular.io/cli).
