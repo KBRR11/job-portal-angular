@@ -1,0 +1,19 @@
+version: "3.8"
+
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      API_URL: job_portal_backend
+    ports:
+      - "4200:80"
+    networks:
+      - job_portal_network
+
+networks:
+  #job_portal_network:
+  #  external: true
+  job_portal_network:
+    driver: bridge

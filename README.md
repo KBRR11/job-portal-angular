@@ -58,6 +58,22 @@ Ejecuta `ng test` para ejecutar las pruebas unitarias a través de [Karma](https
 
 Ejecuta `ng e2e` para ejecutar las pruebas de extremo a extremo a través de la plataforma de tu elección. Para usar este comando, primero debes agregar un paquete que implemente capacidades de prueba de extremo a extremo.
 
+## Desarrollo Asistido por IA
+
+Este proyecto utilizó herramientas de IA mediante el protocolo MCP (Model Context Protocol) para:
+- Generar documentación Swagger automatizada
+- Crear y optimizar archivos README
+- Realizar análisis de código profundo
+
+Se emplearon modelos especializados:
+- **Gemini 2.5 Flash** para generación rápida de documentación
+- **DeepSeek** para análisis detallado de código a bajo costo
+
+### Ejemplos de uso:
+1. Generación automática de comentarios en servicios Angular
+2. Optimización de configuraciones Docker
+3. Refactorización de componentes complejos
+
 ## Ayuda Adicional
 
 Para obtener más ayuda sobre Angular CLI, usa `ng help` o consulta la página [Angular CLI Overview and Command Reference](https://angular.io/cli).
